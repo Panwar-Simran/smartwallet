@@ -4,13 +4,16 @@ import com.smartwallet.smartwallet.dto.LoginRequest;
 import com.smartwallet.smartwallet.dto.RegisterRequest;
 import com.smartwallet.smartwallet.exception.UserAlreadyExistsException;
 import com.smartwallet.smartwallet.model.User;
+import com.smartwallet.smartwallet.model.Wallet;
 import com.smartwallet.smartwallet.repository.UserRepository;
+import com.smartwallet.smartwallet.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Service
@@ -18,6 +21,10 @@ public class AuthService {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    @Autowired
+    private WalletRepository walletRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,6 +50,12 @@ public class AuthService {
         user.setUpdatedAt(LocalDateTime.now());
 
         userRepository.save(user);
+
+        Wallet wallet = new Wallet();
+        wallet.setUser(user);
+        wallet.setBalance(BigDecimal.ZERO);
+        walletRepository.save(wallet);
+
         return "User registered successfully";
     }
 
