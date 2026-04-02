@@ -5,8 +5,10 @@ import com.smartwallet.smartwallet.dto.TransferMoneyDto;
 import com.smartwallet.smartwallet.dto.WalletBalanceDto;
 import com.smartwallet.smartwallet.exception.InsufficientBalanceException;
 import com.smartwallet.smartwallet.exception.ResourceNotFoundException;
+import com.smartwallet.smartwallet.model.Transaction;
 import com.smartwallet.smartwallet.model.User;
 import com.smartwallet.smartwallet.model.Wallet;
+import com.smartwallet.smartwallet.repository.TransactionRepository;
 import com.smartwallet.smartwallet.repository.UserRepository;
 import com.smartwallet.smartwallet.repository.WalletRepository;
 import jakarta.validation.Valid;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 public class WalletService {
@@ -24,6 +27,9 @@ public class WalletService {
 
     @Autowired
     private WalletRepository walletRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     public WalletBalanceDto getBalance(String email) {
         User user= userRepository.findByEmail(email)
@@ -82,6 +88,16 @@ public class WalletService {
         walletRepository.save(senderWallet);
         receiverWallet.setBalance(receiverWallet.getBalance().add(amount));
         walletRepository.save(receiverWallet);
+
+
+        //save transaction
+        Transaction txn = new Transaction();
+        txn.setSender(sender);
+        txn.setReceiver(receiver);
+        txn.setAmount(amount);
+        txn.setCreatedAt(LocalDateTime.now());
+
+        transactionRepository.save(txn);
 
         return " Transaction Successful!";
 

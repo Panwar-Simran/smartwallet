@@ -3,7 +3,7 @@ package com.smartwallet.smartwallet.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-
+//RESPONSE DTO
 @Data
 public class UserProfileDto {
     private Long id;

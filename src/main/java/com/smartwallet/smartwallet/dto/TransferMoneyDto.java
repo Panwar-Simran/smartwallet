@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.math.BigDecimal;
-
+//REQUEST DTO
 @Data
 public class TransferMoneyDto {
 

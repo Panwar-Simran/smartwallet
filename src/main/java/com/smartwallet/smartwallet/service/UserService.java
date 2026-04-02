@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -52,5 +54,25 @@ public class UserService {
         updatedDto.setCreatedAt(user.getCreatedAt());
         updatedDto.setUpdatedAt(user.getUpdatedAt());
         return updatedDto;
+    }
+
+
+    public List<UserProfileDto> searchUsers(String query, String loggedInUserEmail) {
+        // Fetch users matching name or email
+        List<User> users = userRepository
+                .findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(query, query);
+
+        // Convert to DTO and exclude logged-in user
+        List<UserProfileDto> result = new ArrayList<>();
+        for (User user : users) {
+            if (!user.getEmail().equalsIgnoreCase(loggedInUserEmail)) {
+                UserProfileDto dto = new UserProfileDto();
+                dto.setId(user.getId());
+                dto.setName(user.getName());
+                dto.setEmail(user.getEmail());
+                result.add(dto);
+            }
+        }
+        return result;
     }
 }
