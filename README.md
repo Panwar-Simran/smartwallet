@@ -1,6 +1,6 @@
 # SmartWallet – Backend
 
-**Technologies:** Java, Spring Boot, PostgreSQL, REST APIs, JWT Authentication, Postman
+**Technologies:** Java, Spring Boot, PostgreSQL, REST APIs, JWT Authentication, Postman, IntelliJ IDEA.
 
 ## Project Overview
 SmartWallet is a **digital wallet application** that allows users to manage their money securely. 
