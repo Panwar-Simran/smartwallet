@@ -1,4 +1,4 @@
-package com.smartwallet.smartwallet.security;
+package com.smartwallet.smartwallet.service;
 
 import com.smartwallet.smartwallet.dto.TransactionDto;
 import com.smartwallet.smartwallet.exception.ResourceNotFoundException;
