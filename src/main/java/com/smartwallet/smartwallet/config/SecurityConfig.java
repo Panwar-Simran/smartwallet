@@ -66,7 +66,7 @@ public class SecurityConfig {
         org.springframework.web.cors.CorsConfiguration config = new org.springframework.web.cors.CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://127.0.0.1:5500");
+        config.addAllowedOrigin("https://panwar-simran.github.io");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
